@@ -1,0 +1,46 @@
+# Add or update scores
+ZADD leaderboard 100 "Alice"
+ZADD leaderboard 150 "Bob"
+ZADD leaderboard 120 "Charlie"
+ZINCRBY leaderboard 30 "Alice"   # Alice now has 130
+
+# Get leaderboard (high to low)
+ZREVRANGE leaderboard 0 -1 WITHSCORES
+
+# Get rank of a player
+## Ascending rank (low to high)
+ZRANK leaderboard "Alice"
+
+## Descending rank (high to low)
+ZREVRANK leaderboard "Alice"
+
+# Remove player
+
+## Remove by value
+ZREM leaderboard "Charlie"
+
+## Remove bottom 1 player (lowest score)
+ZREMRANGEBYRANK leaderboard 0 0
+
+## Remove players with scores between 0 and 100
+ZREMRANGEBYSCORE leaderboard 0 100
+
+# GET
+## TOP N players
+ZREVRANGE leaderboard 0 2 WITHSCORES   # Top 3 players
+
+## GET a player score
+ZSCORE leaderboard "Alice"
+
+# Get players within score range (ascending order):
+ZRANGEBYSCORE leaderboard 100 200 WITHSCORES
+
+# Get players within score range (descending order):
+ZREVRANGEBYSCORE leaderboard 200 100 WITHSCORES
+
+# MISC
+## Add ZSET and set expiration in 1 command
+ZADD leaderboard 150 "Bob"
+EXPIRE leaderboard 300     # leaderboard expires in 5 minutes
+
+ZADD leaderboard 150 "Bob" EX 10
