@@ -6,3 +6,31 @@ LPUSH tasks "task3"
 
 ## OR push from right (if you want FIFO)
 RPUSH tasks "task1"
+RPUSH tasks "task2"
+RPUSH tasks "task3"
+
+# READ LIST
+## Read entire list
+LRANGE tasks 0 -1
+
+## Read first 2 items
+LRANGE tasks 0 1
+
+# REMOVE
+## Pop from left (FIFO)
+LPOP tasks
+
+## Pop from right (LIFO)
+RPOP tasks
+
+# UPDATE
+## Set value at index
+LSET tasks 0 "updated-task"
+
+
+# REMOVE specific value occurence
+## Remove once occurrences of value
+LREM tasks 1 "task1"
+
+## Remove all occurrences of value
+LREM tasks 0 "task1"
