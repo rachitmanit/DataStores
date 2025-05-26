@@ -1,0 +1,8 @@
+# ADD TO LIST
+## Push values to list from left
+LPUSH tasks "task1"
+LPUSH tasks "task2"
+LPUSH tasks "task3"
+
+## OR push from right (if you want FIFO)
+RPUSH tasks "task1"

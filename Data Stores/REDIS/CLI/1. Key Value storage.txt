@@ -1,0 +1,36 @@
+# Set a key
+SET key1 "Alice"
+
+# Get a key
+GET key1
+
+# Check if a key exists
+EXISTS key1
+
+# Delete a key
+DEL key1
+
+# Get a key
+GET key1
+
+# Check if a key exists
+EXISTS key1
+
+# Delete a key
+DEL key1
+
+# Set a key with expiration (TTL in seconds)
+SET session:abc123 "user1"
+EXPIRE session:abc123 60
+
+# Get remaining TTL
+TTL session:abc123
+
+# EXPIRE in within same command to make it atomic
+SET key1 "value1" EX 10
+GET key1
+TTL key1  # TTL of a key without expiration is -1.
+
+SET session:abc123 "user1" PX 60000  # expire in 60000 ms (milliseconds)
+SET session:abc123 "user1" EX 60 NX # only set if the key does not exist
+SET session:abc123 "user1" EX 60 XX # only set if the key already exist
